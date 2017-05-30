@@ -1,0 +1,29 @@
+---
+name: mc-server
+
+releases:
+- name: mc-server
+  version: latest
+
+stemcells:
+- alias: ubuntu
+  os: ubuntu-trusty
+  version: latest
+
+update:
+  canaries: 0
+  max_in_flight: 1
+  canary_watch_time: 1000-30000
+  update_watch_time: 1000-30000
+
+instance_groups:
+- name: mc-server
+  instances: 1
+  azs: [z1]
+  jobs:
+  - name: server
+    release: mc-server
+  vm_type: default
+  stemcell: ubuntu
+  networks:
+  - name: default

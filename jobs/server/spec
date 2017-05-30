@@ -1,0 +1,12 @@
+---
+name: server
+
+templates:
+  ctl.erb: /bin/ctl
+
+packages: 
+- jre_8u131
+- regrowth_1.0.2_1.7.0
+- screen_4.5.1
+
+properties: {}

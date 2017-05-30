@@ -1,0 +1,37 @@
+#!/bin/bash
+
+RUN_DIR=/var/vcap/sys/run/server
+LOG_DIR=/var/vcap/sys/log/server
+PIDFILE=${RUN_DIR}/pid
+export JAVA_HOME=/var/vcap/packages/jre_8u131
+export PATH=$JAVA_HOME/bin:$PATH
+export PATH=/var/vcap/packages/screen_4.5.1/bin:$PATH
+
+case $1 in
+
+  start)
+    mkdir -p $RUN_DIR $LOG_DIR
+    chown -R vcap:vcap $RUN_DIR $LOG_DIR
+
+    cd /var/vcap/packages/regrowth_1.0.2_1.7.0
+    chmod a+x ServerStart.sh
+
+    screen -r mcs -X quit || true
+    screen -d -m -S mcs
+    screen -r mcs -X logfile $LOG_DIR/server.log
+    screen -r mcs -X log on
+    screen -r mcs -X stuff "./ServerStart.sh"
+    pgrep -n 'java' > $PIDFILE
+    ;;
+
+  stop)
+    screen -r mcs -X stuff "/stop\n"
+    sleep 20
+    rm -f $PIDFILE
+
+    ;;
+
+  *)
+    echo "Usage: ctl {start|stop}" ;;
+
+esac

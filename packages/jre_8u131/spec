@@ -1,0 +1,7 @@
+---
+name: jre_8u131
+
+dependencies: []
+
+files:
+- jre_8u131/jre-8u131-linux-x64.tar.gz

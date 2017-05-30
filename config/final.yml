@@ -1,0 +1,5 @@
+name: mc-server
+blobstore:
+  provider: local
+  options:
+    blobstore_path: /tmp/mc-server-blobs
