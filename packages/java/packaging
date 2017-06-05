@@ -1,0 +1,5 @@
+set -e -x
+
+tar -xvf java/jre-*.tar.gz
+
+cp -a jre*/* ${BOSH_INSTALL_TARGET}

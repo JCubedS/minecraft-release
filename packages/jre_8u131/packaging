@@ -1,5 +1,0 @@
-set -e -x
-
-tar -xvf jre_8u131/jre-8u131-linux-x64.tar.gz
-
-cp -a jre1.8.0_131/* ${BOSH_INSTALL_TARGET}

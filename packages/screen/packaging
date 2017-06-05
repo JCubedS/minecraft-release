@@ -1,0 +1,13 @@
+set -ex
+
+version=$(find . -name 'screen*.tar.gz' | grep -Po '\d+\.\d+\.\d+')
+
+tar -xvf screen/screen-${version}.tar.gz
+
+pushd screen-${version}
+  ./configure \
+    --prefix=${BOSH_INSTALL_TARGET}
+
+  make
+  make install
+popd

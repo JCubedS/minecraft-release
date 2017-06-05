@@ -1,9 +1,9 @@
-jre_8u131/jre-8u131-linux-x64.tar.gz:
+java/jre-8u131-linux-x64.tar.gz:
   size: 75920010
   sha: 9303d3a8e8fc2d2eda014887fd92a6f5883f0170
-regrowth_1.0.2_1.7.0/RegrowthServer-1.0.2-1.7.10.zip:
+modpacks/RegrowthServer-1.0.2-1.7.10.zip:
   size: 211615112
   sha: e7eac5a78a407e93bc7478f3139b585c656c211e
-screen_4.5.1/screen-4.5.1.tar.gz:
+screen/screen-4.5.1.tar.gz:
   size: 963153
   sha: d096ea40c7a349ec46f3bd4fcc02fd6a873318e6

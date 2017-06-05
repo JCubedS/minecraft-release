@@ -1,8 +1,0 @@
----
-name: regrowth_1.0.2_1.7.0
-
-dependencies: []
-
-files:
-- regrowth_1.0.2_1.7.0/RegrowthServer-1.0.2-1.7.10.zip
-- eula/eula.txt

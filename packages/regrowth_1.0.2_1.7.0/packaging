@@ -1,4 +1,0 @@
-set -ex
-
-unzip regrowth_1.0.2_1.7.0/RegrowthServer-1.0.2-1.7.10.zip -d ${BOSH_INSTALL_TARGET}
-cp eula/eula.txt ${BOSH_INSTALL_TARGET}

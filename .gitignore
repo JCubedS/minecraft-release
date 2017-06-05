@@ -1,3 +1,5 @@
 config/private.yml
-blobs/*
-dev_releases/*
+blobs
+dev_releases
+.dev_builds
+.idea
