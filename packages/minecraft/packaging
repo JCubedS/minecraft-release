@@ -1,0 +1,14 @@
+set -ex
+
+export JAVA_HOME=/var/vcap/packages/java
+export PATH=$JAVA_HOME/bin:$PATH
+
+MINECRAFT_DIR=$(cd `dirname "${BASH_SOURCE[0]}"` && pwd)
+
+pushd ${BOSH_INSTALL_TARGET}
+    java -jar ${MINECRAFT_DIR}/minecraft/forge*-installer.jar --installServer
+    rm forge-*.log
+popd
+
+cp -a minecraft/ServerStart.sh ${BOSH_INSTALL_TARGET}
+chmod a+x ${BOSH_INSTALL_TARGET}/ServerStart.sh

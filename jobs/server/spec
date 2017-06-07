@@ -6,7 +6,7 @@ templates:
 
 packages: 
 - java
-- modpacks
+- mc-server
 - screen
 
 properties: {}

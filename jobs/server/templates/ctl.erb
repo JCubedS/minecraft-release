@@ -3,6 +3,8 @@
 RUN_DIR=/var/vcap/sys/run/server
 LOG_DIR=/var/vcap/sys/log/server
 PIDFILE=${RUN_DIR}/pid
+SERVER_DIR=/var/vcap/packages/mc-server
+
 export JAVA_HOME=/var/vcap/packages/java
 export PATH=$JAVA_HOME/bin:$PATH
 export PATH=/var/vcap/packages/screen/bin:$PATH
@@ -13,8 +15,7 @@ case $1 in
     mkdir -p $RUN_DIR $LOG_DIR
     chown -R vcap:vcap $RUN_DIR $LOG_DIR
 
-    cd /var/vcap/packages/modpacks
-    chmod a+x ServerStart.sh
+    cd ${SERVER_DIR}
 
     screen -r mcs -X quit || true
     screen -d -m -S mcs

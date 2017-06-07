@@ -1,0 +1,7 @@
+set -ex
+
+MODPACKS_DIR=/var/vcap/packages/modpacks
+MINECRAFT_DIR=/var/vcap/packages/minecraft
+
+cp -a ${MODPACKS_DIR}/* ${BOSH_INSTALL_TARGET}
+cp -a ${MINECRAFT_DIR}/* ${BOSH_INSTALL_TARGET}

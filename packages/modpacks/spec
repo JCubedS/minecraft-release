@@ -4,5 +4,5 @@ name: modpacks
 dependencies: []
 
 files:
-- modpacks/RegrowthServer-1.0.2-1.7.10.zip
+- modpacks/RegrowthServer-1.0.2.zip
 - eula/eula.txt

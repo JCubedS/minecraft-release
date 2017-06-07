@@ -1,0 +1,8 @@
+---
+name: mc-server
+
+dependencies:
+- minecraft
+- modpacks
+
+files: []
