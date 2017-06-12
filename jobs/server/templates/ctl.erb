@@ -2,6 +2,8 @@
 
 RUN_DIR=/var/vcap/sys/run/server
 LOG_DIR=/var/vcap/sys/log/server
+WORLD_DIR=/var/vcap/store/server/world
+
 PIDFILE=${RUN_DIR}/pid
 SERVER_DIR=/var/vcap/packages/mc-server
 
@@ -12,10 +14,12 @@ export PATH=/var/vcap/packages/screen/bin:$PATH
 case $1 in
 
   start)
-    mkdir -p $RUN_DIR $LOG_DIR
-    chown -R vcap:vcap $RUN_DIR $LOG_DIR
+    mkdir -p $RUN_DIR $LOG_DIR $WORLD_DIR
+    chown -R vcap:vcap $RUN_DIR $LOG_DIR $WORLD_DIR
 
     cd ${SERVER_DIR}
+
+    ln -s ${WORLD_DIR} world || true
 
     screen -r mcs -X quit || true
     screen -d -m -S mcs

@@ -24,6 +24,7 @@ instance_groups:
   - name: server
     release: mc-server
   vm_type: default
+  persistent_disk: 3_000
   stemcell: ubuntu
   networks:
   - name: default
