@@ -4,14 +4,14 @@ set -e
 
 RUN_DIR=/var/vcap/sys/run/server
 LOG_DIR=/var/vcap/sys/log/server
-WORLD_DIR=/var/vcap/store/server/world
 
 PIDFILE=${RUN_DIR}/pid
-SERVER_DIR=/var/vcap/packages/mc-server
 
-export JAVA_HOME=/var/vcap/packages/java
+SERVER_DIR=/var/vcap/jobs/server/packages/mc-server
+WORLD_DIR=/var/vcap/store/server/world
+export JAVA_HOME=/var/vcap/jobs/server/packages/java
 export PATH=$JAVA_HOME/bin:$PATH
-export PATH=/var/vcap/packages/screen/bin:$PATH
+export PATH=/var/vcap/jobs/server/packages/screen/bin:$PATH
 
 case $1 in
 
