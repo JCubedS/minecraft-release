@@ -9,6 +9,8 @@ PIDFILE=${RUN_DIR}/pid
 
 SERVER_DIR=/var/vcap/jobs/server/packages/mc-server
 WORLD_DIR=/var/vcap/store/server/world
+SETTING_DIR=/var/vcap/jobs/server/data
+
 export JAVA_HOME=/var/vcap/jobs/server/packages/java
 export PATH=$JAVA_HOME/bin:$PATH
 export PATH=/var/vcap/jobs/server/packages/screen/bin:$PATH
@@ -23,6 +25,10 @@ case $1 in
 
     if [ ! -d "world" ]; then
         ln -s ${WORLD_DIR} world
+    fi
+
+    if [ ! -f "server.properties" ]; then
+        ln -s ${SETTING_DIR}/* .
     fi
 
     screen -r mcs -X quit || true
