@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 RUN_DIR=/var/vcap/sys/run/server
 LOG_DIR=/var/vcap/sys/log/server
 WORLD_DIR=/var/vcap/store/server/world
@@ -19,7 +21,9 @@ case $1 in
 
     cd ${SERVER_DIR}
 
-    ln -s ${WORLD_DIR} world || true
+    if [ ! -d "world" ]; then
+        ln -s ${WORLD_DIR} world
+    fi
 
     screen -r mcs -X quit || true
     screen -d -m -S mcs
