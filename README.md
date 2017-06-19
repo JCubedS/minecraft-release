@@ -40,4 +40,50 @@ The deployment manifest will also create a persistent disk of 3GB, and store the
 
 ### Configurable properties
 
-Coming soon
+Supported deployment properties include:
+
+```
+server.port:
+     description: The port the server listens on
+     default: 25565
+
+server.seed:
+      description: The seed value for the world
+      default: <empty string>
+
+server.spawn_npcs:
+      description: Determines if villages should spawn
+      default: true
+
+server.spawn_animals:
+      description: Determines if animals should spawn
+      default: true
+
+server.spawn_monsters:
+      description: Determines if monsters should spawn
+      default: true
+
+server.difficulty:
+      description: Sets the difficulty level of the world. (0 - Peaceful; 1 - Easy; 2 - Normal; 3 - Hard)
+      default: 1
+
+server.pvp:
+      description: Determined if Player vs. Player is enabled
+      default: true
+
+server.gamemode:
+      description: Defines the mode of gameplay. (0 - Survival; 1 - Creative; 2 - Adventure; 3 - Spectator)
+      default: 0
+
+server.max_players:
+      description: The maximum of concurrent players
+      default: 20
+
+server.motd:
+      description: Message of the day - Displayed when the user logs in
+      default: 'A Minecraft Server'
+
+server.world_name:
+      description: Name of the world. Used to name the world and its associated save folder
+      default: 'world'
+```

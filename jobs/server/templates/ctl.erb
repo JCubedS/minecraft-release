@@ -8,7 +8,7 @@ LOG_DIR=/var/vcap/sys/log/server
 PIDFILE=${RUN_DIR}/pid
 
 SERVER_DIR=/var/vcap/jobs/server/packages/mc-server
-WORLD_DIR=/var/vcap/store/server/world
+WORLD_DIR=/var/vcap/store/server/<%= properties.server.world_name %>
 SETTING_DIR=/var/vcap/jobs/server/data
 
 export JAVA_HOME=/var/vcap/jobs/server/packages/java
@@ -23,8 +23,8 @@ case $1 in
 
     cd ${SERVER_DIR}
 
-    if [ ! -d "world" ]; then
-        ln -s ${WORLD_DIR} world
+    if [ ! -d "<%= properties.server.world_name %>" ]; then
+        ln -s ${WORLD_DIR} <%= properties.server.world_name %>
     fi
 
     if [ ! -f "server.properties" ]; then
