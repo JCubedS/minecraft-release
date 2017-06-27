@@ -5,4 +5,5 @@ dependencies:
 - minecraft
 - modpacks
 
-files: []
+files:
+- mc-server/screen.cfg

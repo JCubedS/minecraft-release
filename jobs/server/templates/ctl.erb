@@ -3,7 +3,7 @@
 set -e
 
 RUN_DIR=/var/vcap/sys/run/server
-LOG_DIR=/var/vcap/sys/log/server
+export LOG_DIR=/var/vcap/sys/log/server
 
 PIDFILE=${RUN_DIR}/pid
 
@@ -31,12 +31,7 @@ case $1 in
         ln -s ${SETTING_DIR}/* .
     fi
 
-    screen -r mcs -X quit || true
-    screen -d -m -S mcs
-    screen -r mcs -X logfile $LOG_DIR/server.log
-    screen -r mcs -X log on
-    screen -r mcs -X stuff "./ServerStart.sh
-"
+    screen -c ./screen.cfg
     sleep 5
     pgrep -n 'java' > $PIDFILE
     ;;
