@@ -1,49 +1,61 @@
 #!/bin/bash
 
-set -e
+set -ex
 
-RUN_DIR=/var/vcap/sys/run/server
 export LOG_DIR=/var/vcap/sys/log/server
+SCRIPT_LOGFILE=ctl.log
 
-PIDFILE=${RUN_DIR}/pid
+mkdir -p $LOG_DIR
+chown -R vcap:vcap $LOG_DIR
 
-SERVER_DIR=/var/vcap/jobs/server/packages/mc-server
-WORLD_DIR=/var/vcap/store/server/<%= properties.server.world_name %>
-SETTING_DIR=/var/vcap/jobs/server/data
+echo $$ ": ################# Starting " $(date) "########### pid " $$ > ${LOG_DIR}/${SCRIPT_LOGFILE}
 
-export JAVA_HOME=/var/vcap/jobs/server/packages/java
-export PATH=$JAVA_HOME/bin:$PATH
-export PATH=/var/vcap/jobs/server/packages/screen/bin:$PATH
+{
+    RUN_DIR=/var/vcap/sys/run/server
+    PIDFILE=${RUN_DIR}/pid
 
-case $1 in
+    SERVER_DIR=/var/vcap/jobs/server/packages/mc-server
+    WORLD_DIR=/var/vcap/store/server/<%= properties.server.world_name %>
+    SETTING_DIR=/var/vcap/jobs/server/data
 
-  start)
-    mkdir -p $RUN_DIR $LOG_DIR $WORLD_DIR
-    chown -R vcap:vcap $RUN_DIR $LOG_DIR $WORLD_DIR
+    export TERM=screen
+    export JAVA_HOME=/var/vcap/jobs/server/packages/java
+    export PATH=$JAVA_HOME/bin:$PATH
+    export PATH=/var/vcap/jobs/server/packages/screen/bin:$PATH
 
-    cd ${SERVER_DIR}
+    case $1 in
 
-    if [ ! -d "<%= properties.server.world_name %>" ]; then
-        ln -s ${WORLD_DIR} <%= properties.server.world_name %>
-    fi
+      start)
 
-    if [ ! -f "server.properties" ]; then
-        ln -s ${SETTING_DIR}/* .
-    fi
+        mkdir -p $RUN_DIR $WORLD_DIR
+        chown -R vcap:vcap $RUN_DIR $WORLD_DIR
 
-    screen -c ./screen.cfg
-    sleep 5
-    pgrep -n 'java' > $PIDFILE
-    ;;
+        echo $$ > ${PIDFILE}
 
-  stop)
-    screen -rx mcs -X stuff "/stop\n"
-    sleep 10
-    rm -f $PIDFILE
+        cd ${SERVER_DIR}
 
-    ;;
+        if [ ! -d "<%= properties.server.world_name %>" ]; then
+            ln -s ${WORLD_DIR} <%= properties.server.world_name %>
+        fi
 
-  *)
-    echo "Usage: ctl {start|stop}" ;;
+        if [ ! -f "server.properties" ]; then
+            ln -s ${SETTING_DIR}/* .
+        fi
 
-esac
+        exec ./ServerStart.sh > ${LOG_DIR}/server-`date +%d%m%Y%T`.log
+        ;;
+
+      stop)
+        PID=`cat ${PIDFILE}`
+        kill -- -$(ps -o pgid= $PID | grep -o '[0-9]*')
+        sleep 10
+        rm -f $PIDFILE
+
+        ;;
+
+      *)
+        echo "Usage: ctl {start|stop}" ;;
+
+    esac
+
+} >> ${LOG_DIR}/${SCRIPT_LOGFILE}
